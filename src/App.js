@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react"
 import { Route, Routes } from "react-router-dom"
 import { Link, useParams } from "react-router-dom"
-import Home from "./component.jsx/Home"
+import Home from "./components/Home"
 import Box from "@mui/material/Box"
 import AppBar from "@mui/material/AppBar"
 import Container from "@mui/material/Container"
 import Typography from "@mui/material/Typography"
-import SearchBar from "./component.jsx/SearchBar"
-import SearchResults from "./component.jsx/SearchResults"
-import Account from "./component.jsx/Account"
-import Post from "./component.jsx/Post"
+import SearchBar from "./components/SearchBar"
+import SearchResults from "./components/SearchResults"
+import Account from "./components/Account"
+import Post from "./components/Post"
 import { auth } from "./firebase/config"
-import SignIn from "./component.jsx/SignIn"
-import SignUp from "./component.jsx/SignUp"
+import SignIn from "./components/SignIn"
+import SignUp from "./components/SignUp"
 import { onAuthStateChanged, signOut } from "firebase/auth"
-import PostRoom from "./component.jsx/PostRoom"
+import PostRoom from "./components/PostRoom"
 import { Toolbar } from "@mui/material"
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
@@ -22,9 +22,9 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Button from "@mui/material/Button";
 import HouseIcon from '@mui/icons-material/House';
 import client from "./sanityClient";
-import RenderedAccount from "./component.jsx/renderedAccount";
-import RenderedPosting from "./component.jsx/renderedPosting"
-import PostDetails from "./component.jsx/PostDetails"
+import RenderedAccount from "./components/renderedAccount";
+import RenderedPosting from "./components/renderedPosting"
+import PostDetails from "./components/PostDetails"
 
 function App() {
   // console.log(auth?.currentUser?.uid)

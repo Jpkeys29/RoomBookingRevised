@@ -14,7 +14,6 @@ import client from "../sanityClient";
 import CardPosting from "./postingCards/Card";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
-// import PostDetails from "./PostDetails";
 
 const SearchResults = () => {
   const [posting, setPosting] = useState([]);

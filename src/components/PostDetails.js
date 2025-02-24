@@ -81,17 +81,6 @@ export default function PostDetails({user}) {
         sx={{ height: 190 }}
         image={postDetails?.images?.[0].asset && urlFor(postDetails.images[0].asset)}
         />
-        {/* <Box>
-          {postDetails?.images?.map((image, index) => ( 
-            <CardMedia
-            key={image._key || index}
-            sx={{ height: 190 }}
-            image={ 
-              image?.asset && urlFor(image.asset) 
-            }
-            />
-            ))}
-        </Box> */}
         <CardContent>
           <Grid container spacing={2}>
           {!editMode && 
