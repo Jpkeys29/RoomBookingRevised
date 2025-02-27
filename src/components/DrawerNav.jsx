@@ -15,42 +15,8 @@ export function DrawerNav({links}) {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
+        setMobileOpen(prev => !prev);
       };
-
-    const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-          <Divider>
-            <List>
-              {links?.map((link, i) => (
-                <ListItem key={i} disablePadding>
-                  <ListItemButton component={Link}  to={link.to} sx={{ textAlign: "center" }}>
-                    <ListItemText primary={link.name} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Divider>
-
-        <Box >
-          <Drawer
-          anchor="right"
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-              },
-            }}
-          >
-          </Drawer>
-        </Box>
-      </Box>
-      );
-    
 
     return (
 
@@ -76,9 +42,42 @@ export function DrawerNav({links}) {
           
             {isMobile && (
             <IconButton color="inherit" edge="end" onClick={handleDrawerToggle}>
-              <MenuIcon />
+              <MenuIcon sx={{ fontSize: 40, color: 'black' }} />
             </IconButton>
           )}
+
+        <Drawer
+          anchor="right"
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+          <Box>
+          {links.map((link, i) => (
+            <Link
+              key={i}
+              style={{
+                display: "block",
+                padding: "10px",
+                color: "#212529",
+                textDecoration: "none",
+                fontFamily: "Arial, sans-serif",
+              }}
+              to={link.to}
+              onClick={handleDrawerToggle} // Close drawer on link click
+            >
+              {link.name}
+            </Link>
+          ))}
+          </Box>
+          </Drawer>
         </Box>
     )
 }
