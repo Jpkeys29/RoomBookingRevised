@@ -44,7 +44,6 @@ function App() {
   // console.log(auth?.currentUser?.uid)
   const [user, setUser] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
-  // const [ loadingMessage, setLoadingMessage ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
 
 
@@ -77,14 +76,12 @@ function App() {
     await signOut(auth);
   };
 
-
-
   return (
     <div>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex'}}>
         <AppBar 
-          position="sticky"
-          sx={{ backgroundColor: "transparent", height: "75px", top: 0, border: "2px solid red"}}
+          position="fixed"
+          sx={{ backgroundColor: "white", height: "75px", top: 0, border: "2px solid red", zIndex: 1}}
           >
           <Toolbar sx={{ display: "flex", alignItems: "center", width: "100%" }}>
             <Box display="flex" alignItems="center" >
@@ -104,7 +101,6 @@ function App() {
                   RoomyeNYC
                 </Typography>
               </Link>
-
               <Box sx={{ display: "flex", alignItems: "center", gap: 3, ml:"auto" }}>
                 <DrawerNav links={links}/>
               </Box>
@@ -113,7 +109,10 @@ function App() {
           </Toolbar>
         </AppBar>
       </Box>
-        
+
+      <Box 
+      sx={{ paddingTop: "50px", marginTop:"50px" }}
+      >
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -127,19 +126,19 @@ function App() {
               user ? (
                 userDetails ? (
                   <RenderedAccount
-                    userDetails={userDetails}
-                    setUserDetails={setUserDetails}
+                  userDetails={userDetails}
+                  setUserDetails={setUserDetails}
                   />
-                ) : (
-                  <Account />
-                )
-              ) : (
-                <>
+                  ) : (
+                    <Account />
+                    )
+                    ) : (
+                      <>
                   <SignIn setUser={setUser} />
                 </>
               )
             }
-          />
+            />
           <Route
             path="post"
             element={
@@ -155,9 +154,10 @@ function App() {
                 </>
               )
             }
-          />
+            />
         </Routes>
       </main>
+      </Box>  
     </div>
   );
 }
