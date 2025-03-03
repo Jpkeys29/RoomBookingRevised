@@ -17,6 +17,7 @@ import client from "../sanityClient";
 import { auth } from "../firebase/config"
 import axios from "axios";
 import { Buffer } from 'buffer';
+import { TypographyStyled, CardContentStyled, BoxStyled, CardStyled } from "./AccountStyles";
 
 const Account = () => {
   const [userProfile, setUserProfile] = useState({
@@ -84,34 +85,18 @@ const Account = () => {
   console.log("userProfile", userProfile)
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Card sx={{ width: 440, height: 600 }} variant="outlined">
-        <Typography
+    <BoxStyled>
+      <CardStyled
+        variant="outlined"
+      >
+        <TypographyStyled
           component="h1"
           variant="h4"
-          sx={{
-            width: "100%",
-            fontSize: "clamp(2rem, 10vw, 2.15rem)",
-            textAlign: "center",
-          }}
         >
           Account{" "}
-        </Typography>
-        <CardContent
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "50%",
-            gap: 2,
-            width: 400,
-          }}
-        >
+        </TypographyStyled>
+        
+        <CardContentStyled>
           <FormControl>
             <FormLabel>Name</FormLabel>
             <TextField
@@ -221,9 +206,9 @@ const Account = () => {
           <Button variant="contained" onClick={handleSubmit}>
             Create
           </Button>
-        </CardContent>
-      </Card>
-    </Box>
+        </CardContentStyled>
+      </CardStyled>
+    </BoxStyled>
   )
 }
 

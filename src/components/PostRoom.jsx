@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { auth } from "../firebase/config";
 import client from "../sanityClient";
 import PostDetails from "./PostDetails";
+import { BoxStyled, CardStyled, ButtonCreateStyled } from "./PostRoomStyles";
 
 const PostRoom = () => {
   const [roomPosting, setRoomPosting] = useState({
@@ -41,7 +42,6 @@ const PostRoom = () => {
       throw error;
     }
   };
-  // console.log("roomPosting", roomPosting);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -110,16 +110,8 @@ const PostRoom = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        bgcolor: "#f5f5f5",
-        p: 2,
-      }}
-    >
-      <Card sx={{ width: 500, p: 3 }}>
+    <BoxStyled>
+      <CardStyled>
         <CardHeader
           title={
             <Typography variant="h5" color="textPrimary" align="center">
@@ -209,21 +201,16 @@ const PostRoom = () => {
               rows={3}
             />
           </FormControl>
-          <Button
+          <ButtonCreateStyled
             variant="contained"
             size="large"
-            sx={{
-              marginTop: "15px",
-              backgroundColor: "#243156",
-              textTransform: "none",
-            }}
             onClick={handleSubmit}
           >
             Create
-          </Button>
+          </ButtonCreateStyled>
         </CardContent>
-      </Card>
-    </Box>
+      </CardStyled>
+    </BoxStyled>
   );
 };
 

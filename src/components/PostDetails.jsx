@@ -11,6 +11,7 @@ import ContactForm from "./ContactForm";
 import EditIcon from '@mui/icons-material/Edit';
 import Grid from '@mui/material/Grid2';
 import { Link } from "react-router-dom";
+import { ContainerStyled, CardStyled, TypographyStyled } from "./PostDetailsStyles";
 
 export default function PostDetails({user}) {
   const [postDetails, setPostDetails] = useState(null);
@@ -70,12 +71,8 @@ export default function PostDetails({user}) {
   // console.log(postDetails?.images);
 
   return (
-    <Container
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
-      <Card
-       sx={{ width: 500, maxWidth: 600, height: 600, marginTop: "25px" }}
-      >
+    <ContainerStyled>
+      <CardStyled>
         <CardMedia 
         component='img'
         sx={{ height: 190 }}
@@ -113,23 +110,23 @@ export default function PostDetails({user}) {
           </Grid>
 
           <Divider />
-          <Typography
+          <TypographyStyled
             variant="body1"
             component="p"
-            sx={{ color: "text.secondary", mb: 1.5 }}
           >
             {postDetails?.neighborhood}
-          </Typography>
-          <Typography component="div" sx={{ color: "text.secondary", mb: 1.5 }}>
+          </TypographyStyled>
+          <TypographyStyled 
+          component="div"
+           >
             {postDetails?.area}
-          </Typography>
-          <Typography
+          </TypographyStyled>
+          <TypographyStyled
             variant="body1"
             component="p"
-            sx={{ color: "text.secondary", mb: 1.5 }}
           >
             ${postDetails?.price}
-          </Typography>
+          </TypographyStyled>
           <Typography
             variant="body1"
             sx={{ color: "text.secondary", mb: 1.5 }}
@@ -137,13 +134,12 @@ export default function PostDetails({user}) {
           >
             {postDetails?.availability}
           </Typography>
-          <Typography
+          <TypographyStyled
             variant="body1"
-            sx={{ color: "text.secondary", mb: 1.5 }}
             component="p"
           >
             {postDetails?.amenities}
-          </Typography>
+          </TypographyStyled>
 
         {user ? 
         (
@@ -157,9 +153,6 @@ export default function PostDetails({user}) {
           </Link>
         )
       }
-
-        {/* <ContactForm/> */}
-
         </CardContent>
         <Divider />
         { user && 
@@ -170,7 +163,7 @@ export default function PostDetails({user}) {
           Delete Posting
         </Button>
         }
-      </Card>
-    </Container>
+      </CardStyled>
+    </ContainerStyled>
   );
 }
