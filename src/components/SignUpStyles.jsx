@@ -12,37 +12,43 @@ export const CardStyled = styled(Card)(({ theme }) => ({
     flexDirection: "column",
     alignSelf: "center",
     width: "100%",
-    padding: theme.spacing(4),
+    padding: theme.spacing(1),
     gap: theme.spacing(2),
     margin: "auto",
+    border: '2px solid',
+    borderColor: theme.palette.grey[300],
+    boxShadow: theme.shadows[5],
     [theme.breakpoints.up("sm")]: {
       maxWidth: "450px",
+      padding: theme.spacing(1),
+      gap: theme.spacing(1),
+      paddingBottom: theme.spacing(5),
     },
-    boxShadow:
-      "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
-    ...theme.applyStyles("dark", {
-      boxShadow:
-        "hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px",
-    }),
+    [theme.breakpoints.up("md")]: {
+      maxWidth: "600px",
+      padding: theme.spacing(4),
+      gap: theme.spacing(4),
+      paddingBottom: theme.spacing(5),
+    },
+    paddingBottom: theme.spacing(5),
   }))
   
 export const SignInContainer = styled(Stack)(({ theme }) => ({
-    padding: 20,
-    marginTop: "10vh",
+    padding: theme.spacing(2),
+    position: 'relative',
     "&::before": {
       content: '""',
       display: "block",
       position: "absolute",
       zIndex: -1,
       inset: 0,
-      backgroundImage:
-        "radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))",
-      backgroundRepeat: "no-repeat",
-      ...theme.applyStyles("dark", {
-        backgroundImage:
-          "radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))",
-      }),
     },
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(3),
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(4),
+    }, 
   }))
 
 export const TypographyStyled = styled(Typography)(({theme}) => ({
