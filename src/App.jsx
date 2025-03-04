@@ -39,13 +39,13 @@ import RenderedAccount from "./components/renderedAccount";
 import RenderedPosting from "./components/renderedPosting";
 import PostDetails from "./components/PostDetails";
 import { DrawerNav } from "./components/DrawerNav";
-
+import { NavBar } from "./components/NavBar";
+ 
 function App() {
   // console.log(auth?.currentUser?.uid)
   const [user, setUser] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [ isLoading, setIsLoading ] = useState(false);
-
 
    const links = [
    {name: "Post a Room", to: "/post",},
@@ -79,35 +79,8 @@ function App() {
   return (
     <div>
       <Box sx={{ display: 'flex'}}>
-        <AppBar 
-          position="fixed"
-          sx={{ backgroundColor: "white", height: "75px", top: 0, border: "2px solid red", zIndex: 1}}
-          >
-          <Toolbar sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-            <Box display="flex" alignItems="center" >
-              <Link
-                to={"/"}
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                >
-                <Typography>
-                  <HouseIcon sx={{ color: "black", fontSize: "50px" }} />
-                </Typography>
-                <Typography variant="h4" color="black">
-                  RoomyeNYC
-                </Typography>
-              </Link>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 3, ml:"auto" }}>
-                <DrawerNav links={links}/>
-              </Box>
-
-            </Box> 
-          </Toolbar>
-        </AppBar>
+        <NavBar links={links}/>
+        <DrawerNav  links={links}/>
       </Box>
 
       <Box 
@@ -129,15 +102,11 @@ function App() {
                   userDetails={userDetails}
                   setUserDetails={setUserDetails}
                   />
-                  ) : (
-                    <Account />
-                    )
-                    ) : (
-                      <>
-                  <SignIn setUser={setUser} />
-                </>
-              )
-            }
+                  ) : (<Account />)) : (
+                    <>
+                      <SignIn setUser={setUser} />
+                    </>
+              )}
             />
           <Route
             path="post"
@@ -149,11 +118,8 @@ function App() {
               ) : (
                 <>
                   <SignIn />
-
-                  {/* <SignUp /> */}
                 </>
-              )
-            }
+              )}
             />
         </Routes>
       </main>
