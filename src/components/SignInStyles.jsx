@@ -38,4 +38,10 @@ export const CardStyled = styled(Card)(({ theme }) => ({
       }),
     },
   }))
+
+  export const TypographyStyled = styled(Typography)(({theme}) => ({
+    width: "100%", 
+    fontSize: "clamp(2rem, 10vw, 2.15rem)", 
+    textAlign: "center" 
+  }))
   

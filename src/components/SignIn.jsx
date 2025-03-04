@@ -21,7 +21,7 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
-import { CardStyled, SignInContainer } from "./SignInStyles"
+import { CardStyled, SignInContainer, TypographyStyled } from "./SignInStyles"
 
 
 export default function SignIn({ setUser }) {
@@ -108,13 +108,12 @@ export default function SignIn({ setUser }) {
   return (
     <SignInContainer direction="column" justifyContent="space-between">
       <Card variant="outlined">
-        <Typography
+        <TypographyStyled
           component="h1"
           variant="h4"
-          sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)", textAlign: "center" }}
         >
           Sign in
-        </Typography>
+        </TypographyStyled>
         <Box
           component="form"
           onSubmit={handleSubmit}
