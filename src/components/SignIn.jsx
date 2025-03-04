@@ -2,6 +2,7 @@ import * as React from "react"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
+import Card from "@mui/material/Card"
 import CssBaseline from "@mui/material/CssBaseline"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Divider from "@mui/material/Divider"
@@ -20,45 +21,8 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import { CardStyled, SignInContainer } from "./SignInStyles"
 
-
-const Card = styled(MuiCard)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignSelf: "center",
-  width: "100%",
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  margin: "auto",
-  [theme.breakpoints.up("sm")]: {
-    maxWidth: "450px",
-  },
-  boxShadow:
-    "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
-  ...theme.applyStyles("dark", {
-    boxShadow:
-      "hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px",
-  }),
-}))
-
-const SignInContainer = styled(Stack)(({ theme }) => ({
-  padding: 20,
-  marginTop: "10vh",
-  "&::before": {
-    content: '""',
-    display: "block",
-    position: "absolute",
-    zIndex: -1,
-    inset: 0,
-    backgroundImage:
-      "radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))",
-    backgroundRepeat: "no-repeat",
-    ...theme.applyStyles("dark", {
-      backgroundImage:
-        "radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))",
-    }),
-  },
-}))
 
 export default function SignIn({ setUser }) {
   const [emailError, setEmailError] = React.useState(false)
@@ -144,7 +108,6 @@ export default function SignIn({ setUser }) {
   return (
     <SignInContainer direction="column" justifyContent="space-between">
       <Card variant="outlined">
-        {/* <SitemarkIcon /> */}
         <Typography
           component="h1"
           variant="h4"
@@ -241,15 +204,6 @@ export default function SignIn({ setUser }) {
           >
             Sign in with Google
           </Button>
-          {/* <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            onClick={() => alert("Sign in with Facebook")}
-            startIcon={<FacebookIcon />}
-          >
-            Sign in with Facebook
-          </Button> */}
         </Box>
       </Card>
     </SignInContainer>
