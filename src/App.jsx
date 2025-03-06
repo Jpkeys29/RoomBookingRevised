@@ -40,6 +40,21 @@ import RenderedPosting from "./components/renderedPosting";
 import PostDetails from "./components/PostDetails";
 import { DrawerNav } from "./components/DrawerNav";
 import { NavBar } from "./components/NavBar";
+import { useQuery } from "@tanstack/react-query";
+import { CircularProgress } from "@mui/material";
+
+const useUserDetails = ({userId}) => {
+  const fetchUserDetails = async () => {
+    if (!userId) throw new Error('User ID is undefined');
+    const userDetails = await client.getDocument(userId);
+    return userDetails;
+  };
+  return ( useQuery({
+    queryKey: ["userInfo", userId],
+    queryFn: fetchUserDetails,
+    enabled: !!userId
+  }))
+}
  
 function App() {
   // console.log(auth?.currentUser?.uid)
@@ -52,19 +67,38 @@ function App() {
    {name: "Account", to: "/account",},
    {name: "Logout", to: "/",},
   ];
+
+  const { data : userLoginDetails, error, isTryingToLoad } = useUserDetails({userId : user?.uid});
+
+  console.log( userLoginDetails);
+
+
+  function UserDetails({auth, client}) {
+    const userId = auth?.currentUser.uid;
   
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      // console.log(auth?.currentUser?.uid)
-      let userId = auth?.currentUser?.uid;
-      if (userId) {
-        const userdetails = await client.getDocument(userId);
-        console.log(userdetails);
-        setUserDetails(userdetails);
-      }
+    // const fetchUserDetails = async () => {
+    //     if (!userId) throw new Error('User ID is undefined');
+    //     const userDetails = await client.getDocument(userId);
+    //     return userDetails;
+    //   };
+      // const { data : userDetails, error, isLoading } = useQuery(["userInfo", userId] , fetchUserDetails, {enabled})
     };
-    fetchUserDetails();
-  }, [auth, auth?.currentUser]);
+
+
+
+  
+  // useEffect(() => {
+  //   const fetchUserDetails = async () => {
+  //     let userId = auth?.currentUser?.uid;
+  //     if (userId) {
+  //       const userdetails = await client.getDocument(userId);
+  //       console.log(userdetails);
+  //       setUserDetails(userdetails);
+  //     }
+  //   };
+  //   fetchUserDetails();
+  // }, [auth, auth?.currentUser]);
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -102,24 +136,18 @@ function App() {
                   userDetails={userDetails}
                   setUserDetails={setUserDetails}
                   />
-                  ) : (<Account />)) : (
-                    <>
-                      <SignIn setUser={setUser} />
-                    </>
-              )}
+                  ) : (<Account />)) : 
+                  (<SignIn setUser={setUser} />)}
             />
           <Route
             path="post"
             element={
               user ? (
                 <>
-                  <RenderedPosting /> <PostRoom />
+                  <RenderedPosting /> 
+                  <PostRoom />
                 </>
-              ) : (
-                <>
-                  <SignIn />
-                </>
-              )}
+              ) : (<SignIn />)}
             />
         </Routes>
       </main>
