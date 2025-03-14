@@ -4,7 +4,7 @@ import {
   StandaloneSearchBox,
   Autocomplete
 } from "@react-google-maps/api"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate, Navigate } from "react-router-dom"
 import Button from "@mui/material/Button"
 import { use } from "react"
@@ -24,26 +24,30 @@ export const SearchBar = () => {
   const navigate = useNavigate()
   const [ isLoading, setIsLoading ] = useState(false);
   const [ message, setMessage ] = useState("");
-        
-  const handleOnPlacesChanged = () => {
-    let address = inputref.current.getPlaces()
-    console.log(address)
+  const [searchBoxOptions, setSearchBoxOptions] = useState(null);
 
-    const LocationRestriction = () => (
-      {
-        rectangle : {
-          low : { "latitude": 40.477398, "longitude": -74.259087},
-          high : { "latitude": 40.91618, "longitude": -73.70018}
-        }
-      }
-    ) 
-
-    if (address && address.length > 0) {
-      setArea(address[0]);
-    } else {
-      console.log("Type a New York City borough")
+  useEffect (() => {
+    if (isLoaded && google.maps) {
+      setSearchBoxOptions({
+        bounds: new google.maps.LatLngBounds(
+          new google.maps.LatLng(40.477398,  -74.259087),
+          new google.maps.LatLng(40.91618, -73.70018)
+          ),
+          stritctBounds: true,
+      });
     }
-  };
+  }, [isLoaded]);
+  
+        
+  // const handleOnPlacesChanged = () => {
+  //   let address = inputref.current.getPlaces()
+  //   console.log(address)
+  //   if (address && address.length > 0) {
+  //     setArea(address[0]);
+  //   } else {
+  //     console.log("Type a New York City borough")
+  //   }
+  // };
 
   const handleSearch = () => {
     try {
@@ -57,7 +61,7 @@ export const SearchBar = () => {
         } catch (error) {
           console.error(error);
       }
-    };  
+  };  
 
     return (
       <BoxStyled >
@@ -67,12 +71,9 @@ export const SearchBar = () => {
         {isLoaded && (
           <StandaloneSearchBox
           onLoad={(ref) => (inputref.current = ref)}
-          onPlacesChanged={handleOnPlacesChanged}
+          options={searchBoxOptions}
           >
-            <InputStyled
-            type="text"
-              placeholder="Type location"
-              />
+            <InputStyled type="text" placeholder="Type location"/>
           </StandaloneSearchBox>
         )}
         
