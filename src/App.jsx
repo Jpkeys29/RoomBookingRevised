@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
-import Home from "./components/Home";
+import { Home } from "./components/Home";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import SearchBar from "./components/SearchBar";
+import { SearchBar } from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
-import Account from "./components/Account";
+import { Account } from "./components/Account";
 import Post from "./components/Post";
 import { auth } from "./firebase/config";
 import SignIn from "./components/SignIn";
@@ -56,7 +56,7 @@ const useUserDetails = ({userId}) => {
   }))
 }
  
-function App() {
+export const App = () => {
   // console.log(auth?.currentUser?.uid)
   const [user, setUser] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
@@ -75,31 +75,8 @@ function App() {
 
   function UserDetails({auth, client}) {
     const userId = auth?.currentUser.uid;
+  };
   
-    // const fetchUserDetails = async () => {
-    //     if (!userId) throw new Error('User ID is undefined');
-    //     const userDetails = await client.getDocument(userId);
-    //     return userDetails;
-    //   };
-      // const { data : userDetails, error, isLoading } = useQuery(["userInfo", userId] , fetchUserDetails, {enabled})
-    };
-
-
-
-  
-  // useEffect(() => {
-  //   const fetchUserDetails = async () => {
-  //     let userId = auth?.currentUser?.uid;
-  //     if (userId) {
-  //       const userdetails = await client.getDocument(userId);
-  //       console.log(userdetails);
-  //       setUserDetails(userdetails);
-  //     }
-  //   };
-  //   fetchUserDetails();
-  // }, [auth, auth?.currentUser]);
-
-
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -156,4 +133,3 @@ function App() {
   );
 }
 
-export default App;
