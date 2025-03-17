@@ -19,7 +19,7 @@ import axios from "axios";
 import { Buffer } from 'buffer';
 import { TypographyStyled, CardContentStyled, BoxStyled, CardStyled } from "./AccountStyles";
 
-const Account = () => {
+export const Account = () => {
   const [userProfile, setUserProfile] = useState({
     id: "",
     name: "",
@@ -212,4 +212,3 @@ const Account = () => {
   )
 }
 
-export default Account
