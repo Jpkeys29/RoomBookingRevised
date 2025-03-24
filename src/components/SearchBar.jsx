@@ -24,30 +24,16 @@ export const SearchBar = () => {
   const navigate = useNavigate()
   const [ isLoading, setIsLoading ] = useState(false);
   const [ message, setMessage ] = useState("");
-  const [searchBoxOptions, setSearchBoxOptions] = useState(null);
-
-  useEffect (() => {
-    if (isLoaded && google.maps) {
-      setSearchBoxOptions({
-        bounds: new google.maps.LatLngBounds(
-          new google.maps.LatLng(40.477398,  -74.259087),
-          new google.maps.LatLng(40.91618, -73.70018)
-          ),
-          stritctBounds: true,
-      });
-    }
-  }, [isLoaded]);
-  
         
-  // const handleOnPlacesChanged = () => {
-  //   let address = inputref.current.getPlaces()
-  //   console.log(address)
-  //   if (address && address.length > 0) {
-  //     setArea(address[0]);
-  //   } else {
-  //     console.log("Type a New York City borough")
-  //   }
-  // };
+  const handleOnPlacesChanged = () => {
+    let address = inputref.current.getPlaces()
+    if (address && address.length > 0) {
+      let formatted_address = address[0].formatted_address;
+      {
+        setArea({ short_name: formatted_address, long_name: formatted_address});
+      }
+    } 
+  };
 
   const handleSearch = () => {
     try {
@@ -71,7 +57,7 @@ export const SearchBar = () => {
         {isLoaded && (
           <StandaloneSearchBox
           onLoad={(ref) => (inputref.current = ref)}
-          options={searchBoxOptions}
+          onPlacesChanged={handleOnPlacesChanged}
           >
             <InputStyled type="text" placeholder="Type location"/>
           </StandaloneSearchBox>
