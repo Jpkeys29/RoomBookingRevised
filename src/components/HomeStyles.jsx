@@ -9,3 +9,9 @@ export const BoxStyled = styled(Box)(({theme}) => ({
     height: "50%",
     padding: 6,
 }))
+
+export const BoxPostStyled = styled(Box)(({theme}) => ({
+    display: 'grid',
+     gridTemplateColumns: 'repeat(3, 1fr)',
+      gap:4, marginTop: "20vh" 
+}))
