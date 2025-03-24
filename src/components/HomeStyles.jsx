@@ -13,5 +13,7 @@ export const BoxStyled = styled(Box)(({theme}) => ({
 export const BoxPostStyled = styled(Box)(({theme}) => ({
     display: 'grid',
      gridTemplateColumns: 'repeat(3, 1fr)',
-      gap:4, marginTop: "20vh" 
+      gap:15, marginTop: "20vh",
+      padding: "20px",
+      backgroundColor:"#F5F5F5"
 }))

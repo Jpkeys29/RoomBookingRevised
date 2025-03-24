@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 import Post from "./Post";
 import client from '../sanityClient'
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import { BoxStyled, BoxPostStyled } from "./HomeStyles";
 import { HomePosts } from "./HomePosts";
 
@@ -22,7 +22,7 @@ export const Home = ({message}) => {
   }, []);
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{ height: "100vh", backgroundColor:"#F0F0F0" }}>
       <BoxStyled>
         <Typography>
           {message}
@@ -34,11 +34,24 @@ export const Home = ({message}) => {
           {[...roomPosting]
           .sort(() => Math.random() - 0.5)
           .slice(0, 9).map((post, i) => (
-              <Card key={i} >
-                <CardContent>
-                  <Typography>{post.area}</Typography>
-                  {/* <Typography>{post.images?.[0]._key}</Typography> */}
-                  <Typography>${post.price}</Typography>
+              <Card key={i}  >
+                <CardHeader>
+
+                </CardHeader>
+                <CardMedia
+                component="img"
+                height="180"
+                image={post.images?.[0]._key}
+                alt="room"
+                />
+                <CardContent >
+                  <Typography variant="inherit" sx={{ fontWeight: "bold", fontSize: "20px" }}>${post.price} /mo</Typography>
+                  <Box
+                   sx={{ display: "flex", gap: 1, backgroundColor: "#E0E0E0", borderRadius: "15px", padding: "4px 8px", width:"210px", color: "grey.700"}}
+                   >
+                    <Typography>{post.neighborhood},</Typography>
+                    <Typography>{post.area}</Typography>
+                  </Box>
                 </CardContent>
               </Card>
             ))}
