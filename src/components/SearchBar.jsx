@@ -29,9 +29,7 @@ export const SearchBar = () => {
     let address = inputref.current.getPlaces()
     if (address && address.length > 0) {
       let formatted_address = address[0].formatted_address;
-      {
-        setArea({ short_name: formatted_address, long_name: formatted_address});
-      }
+      setArea({ short_name: formatted_address, long_name: formatted_address}); 
     } 
   };
 
