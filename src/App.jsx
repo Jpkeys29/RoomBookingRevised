@@ -57,7 +57,6 @@ const useUserDetails = ({userId}) => {
 }
  
 export const App = () => {
-  // console.log(auth?.currentUser?.uid)
   const [user, setUser] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [ isLoading, setIsLoading ] = useState(false);
@@ -69,9 +68,6 @@ export const App = () => {
   ];
 
   const { data : userLoginDetails, error, isTryingToLoad } = useUserDetails({userId : user?.uid});
-
-  console.log( userLoginDetails);
-
 
   function UserDetails({auth, client}) {
     const userId = auth?.currentUser.uid;
