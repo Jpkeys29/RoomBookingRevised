@@ -6,23 +6,41 @@ import client from '../sanityClient'
 import { Box, Card, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import { BoxStyled, BoxPostStyled } from "./HomeStyles";
 import { HomePosts } from "./HomePosts";
+import { useQuery } from "@tanstack/react-query";
+import imageUrlBuilder from '@sanity/image-url'
+import { CircularProgress } from "@mui/material";
 
+
+const useallRoomPostings = () => {
+  const fetchAllPostings = async () => {
+    const query = '*[_type == "roomposting"]';
+    const postingDetails = await client.fetch(query);
+    console.log(postingDetails)
+    return postingDetails;
+  };
+  return useQuery({
+    queryKey: ["posting"],
+    queryFn: fetchAllPostings,
+    enabled: true
+  })
+}
 
 export const Home = ({message}) => {
-  const [roomPosting, setRoomPosting] = useState([]);
+  
+  const { data : roomPosting, error, isLoading} = useallRoomPostings();
+  // console.log(JSON.stringify(roomPosting));
 
-  useEffect(() => {
-    const fetchRoomPosting = async () => {
-      const query = '*[_type == "roomposting"]';
-      const postsGeneral = await client.fetch(query);
-      console.log(postsGeneral);
-      setRoomPosting(postsGeneral);
-    };
-    fetchRoomPosting();
-  }, []);
-
-  return (
-    <div style={{ height: "100vh", backgroundColor:"#F0F0F0" }}>
+  const builder = imageUrlBuilder(client)
+  const urlFor = (source) => {
+    if(!source) {
+      console.log('No image source available');
+      return "";
+    }
+    return builder.image(source).url()
+  }
+      
+      return (
+        <div style={{ height: "100vh", backgroundColor:"#F0F0F0" }}>
       <BoxStyled>
         <Typography>
           {message}
@@ -31,17 +49,19 @@ export const Home = ({message}) => {
           <SearchBar />
         </div>
         <BoxPostStyled>
-          {[...roomPosting]
+          {isLoading ?  
+          <CircularProgress /> 
+          : [...roomPosting]
           .sort(() => Math.random() - 0.5)
           .slice(0, 9).map((post, i) => (
-              <Card key={i}  >
+            <Card key={i}  >
                 <CardHeader>
 
                 </CardHeader>
                 <CardMedia
                 component="img"
                 height="180"
-                image={post.images?.[0]._key}
+                image={urlFor(post.images?.[0].asset._ref)}
                 alt="room"
                 />
                 <CardContent >
