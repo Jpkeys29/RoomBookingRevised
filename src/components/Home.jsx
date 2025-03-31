@@ -30,8 +30,8 @@ export const Home = ({message}) => {
   const { data : roomPosting, error, isLoading} = useallRoomPostings();
 
   
-  const handleNextPic = ({postingDetails}) => {
-    setCurrentIndex(prev => (prev < postingDetails.images.length - 1 ? prev + 1 : 0));
+  const handleNextPic = ({post}) => {
+    setCurrentIndex(prev => (prev < post?.images.length - 1 ? prev + 1 : 0));
   }
   
   const builder = imageUrlBuilder(client)
@@ -66,7 +66,7 @@ export const Home = ({message}) => {
               component="img"
               height="180"
               // image={urlFor(image.asset._ref)}
-              image={urlFor(postingDetails?.images[currentIndex].asset._ref)}
+              image={urlFor(post?.images[currentIndex].asset._ref)}
               alt="room"
               />
 
