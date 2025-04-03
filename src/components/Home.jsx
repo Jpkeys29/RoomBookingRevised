@@ -26,7 +26,7 @@ const useallRoomPostings = () => {
 }
 
 export const Home = ({message}) => {
-  const { data : roomPosting, error, isLoading} = useallRoomPostings();
+  const { data : allRoomPostings, error, isLoading} = useallRoomPostings();
       
       return (
         <div style={{ height: "100vh", backgroundColor:"#F5F5F5" }}>
@@ -37,19 +37,10 @@ export const Home = ({message}) => {
         <BoxPostStyled>
           {isLoading ?  
           <CircularProgress /> 
-          : [...roomPosting]
+          : [...allRoomPostings]
           // .sort(() => Math.random() - 0.5)
           .slice(0, 9).map((post, i) => (
-            <Card key={i}  >
-              <CardPosting roomPosting={post} />
-              {/* <CardContent > */}
-                {/* <Typography variant="inherit" sx={{ fontWeight: "bold", fontSize: "20px" }}>${post.price} /mo</Typography> */}
-                {/* <TypograStyled>
-                  <Typography>{post.neighborhood},</Typography>
-                  <Typography>{post.area}</Typography>
-                </TypograStyled> */}
-              {/* </CardContent> */}
-            </Card>
+            <CardPosting   allRoomPostings={post} />  
             ))}
         </BoxPostStyled>
       </BoxStyled>
