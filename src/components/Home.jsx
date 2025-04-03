@@ -41,14 +41,14 @@ export const Home = ({message}) => {
           // .sort(() => Math.random() - 0.5)
           .slice(0, 9).map((post, i) => (
             <Card key={i}  >
-              <CardPosting roomPosting={roomPosting} />
-              <CardContent >
-                <Typography variant="inherit" sx={{ fontWeight: "bold", fontSize: "20px" }}>${post.price} /mo</Typography>
-                <TypograStyled>
+              <CardPosting roomPosting={post} />
+              {/* <CardContent > */}
+                {/* <Typography variant="inherit" sx={{ fontWeight: "bold", fontSize: "20px" }}>${post.price} /mo</Typography> */}
+                {/* <TypograStyled>
                   <Typography>{post.neighborhood},</Typography>
                   <Typography>{post.area}</Typography>
-                </TypograStyled>
-              </CardContent>
+                </TypograStyled> */}
+              {/* </CardContent> */}
             </Card>
             ))}
         </BoxPostStyled>
