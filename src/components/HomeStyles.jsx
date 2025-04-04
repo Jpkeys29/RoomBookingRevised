@@ -38,3 +38,12 @@ export const TypograStyled = styled(Box)(({theme}) => ({
     color: "grey.700"
 
 }))
+
+
+{/* <CardContent > */}
+    {/* <Typography variant="inherit" sx={{ fontWeight: "bold", fontSize: "20px" }}>${post.price} /mo</Typography> */}
+        {/* <TypograStyled>
+        <Typography>{post.neighborhood},</Typography>
+        <Typography>{post.area}</Typography>
+        </TypograStyled> */}
+{/* </CardContent> */}

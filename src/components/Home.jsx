@@ -15,7 +15,7 @@ const useallRoomPostings = () => {
   const fetchAllPostings = async () => {
     const query = '*[_type == "roomposting"]';
     const postingDetails = await client.fetch(query);
-    console.log(postingDetails)
+    // console.log(postingDetails)
     return postingDetails;
   };
   return useQuery({
@@ -27,9 +27,10 @@ const useallRoomPostings = () => {
 
 export const Home = ({message}) => {
   const { data : allRoomPostings, error, isLoading} = useallRoomPostings();
+
       
-      return (
-        <div style={{ height: "100vh", backgroundColor:"#F5F5F5" }}>
+  return (
+    <div style={{ height: "100vh", backgroundColor:"#F5F5F5" }}>
       <BoxStyled>
         <div>
           <SearchBar />
@@ -40,8 +41,8 @@ export const Home = ({message}) => {
           : [...allRoomPostings]
           // .sort(() => Math.random() - 0.5)
           .slice(0, 9).map((post, i) => (
-            <CardPosting   allRoomPostings={post} />  
-            ))}
+            <CardPosting  key={i}  roomPosting={post}/>  
+          ))}
         </BoxPostStyled>
       </BoxStyled>
     </div>
