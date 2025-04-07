@@ -1,4 +1,4 @@
-import { styled, Box, Typography, Card, CardContent, Button, Container } from '@mui/material';
+import { styled, Box, Typography, Card, CardContent, Button, Container, ImageList, ImageListItem  } from '@mui/material';
 
 export const ContainerStyled = styled(Container)({
     display: "flex",
@@ -7,10 +7,12 @@ export const ContainerStyled = styled(Container)({
 })
 
 export const CardStyled = styled(Card)({
-    width: 500, 
-    maxWidth: 600, 
-    height: 600, 
-    marginTop: "25px" 
+    width: 1000, 
+    maxWidth: 1000, 
+    height: 1000, 
+    marginTop: "25px",
+    elevation : 3,
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
 })
 
 export const TypographyStyled = styled(Typography)({

@@ -12,12 +12,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import Grid from '@mui/material/Grid2';
 import { Link } from "react-router-dom";
 import { ContainerStyled, CardStyled, TypographyStyled } from "./PostDetailsStyles";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 export default function PostDetails({user}) {
   const [postDetails, setPostDetails] = useState(null);
   const [newDescription, setNewDescription] = useState("");
   const [editMode, setEditMode ] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  
 
   const builder = imageUrlBuilder(client);
   const urlFor = (source) => {
@@ -64,20 +67,33 @@ export default function PostDetails({user}) {
   };
 
   const onNewDescription = (e) => {
-    // console.log(e)
     setNewDescription(e.target.value);
   };
-
-  // console.log(postDetails?.images);
 
   return (
     <ContainerStyled>
       <CardStyled>
-        <CardMedia 
-        component='img'
-        sx={{ height: 190 }}
-        image={postDetails?.images?.[0].asset && urlFor(postDetails.images[0].asset)}
-        />
+        <ImageList variant="woven" cols={3} gap={8}>
+        {postDetails?.images?.map((image, i) => (  
+          <ImageListItem key={i}>
+          <img 
+          src={urlFor(image?.asset)}
+          loading="lazy"
+          sx={{ height: 200 }}
+          />
+          </ImageListItem>       
+          ))}
+        </ImageList>
+        {/* {postDetails?.images?.map((image, i) => (         
+          <CardMedia 
+          key={i}
+          component='img'
+          sx={{ height: 200 }}
+          image={urlFor(image?.asset)}
+          />
+        ))} */}
+
+
         <CardContent>
           <Grid container spacing={2}>
           {!editMode && 
@@ -85,7 +101,7 @@ export default function PostDetails({user}) {
             {postDetails?.description}
           </Typography>
           }
-          {user && <Button onClick={(e) => setEditMode(!editMode)}><EditIcon/> </Button> }
+         {user && <Button onClick={(e) => setEditMode(!editMode)}><EditIcon/> </Button> }
           {editMode && 
           <>
           <TextField
@@ -108,8 +124,8 @@ export default function PostDetails({user}) {
             </>
           }
           </Grid>
-
-          <Divider />
+          
+          {user && <Divider />}
           <TypographyStyled
             variant="body1"
             component="p"
@@ -141,10 +157,7 @@ export default function PostDetails({user}) {
             {postDetails?.amenities}
           </TypographyStyled>
 
-        {user ? 
-        (
-          <ContactForm/>
-          ) :
+        {user ? ( <ContactForm/>) :
           (
             <Link
             to={'/account'}
@@ -154,7 +167,8 @@ export default function PostDetails({user}) {
         )
       }
         </CardContent>
-        <Divider />
+      {user && <Divider />}
+        
         { user && 
         <Button
           sx={{ color: "error.main", mb: 1.5 }}
