@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import client from "../sanityClient";
 import { useState } from "react";
-import {Box,Card,CardContent,CardMedia,Container,Typography,Button} from "@mui/material";
+import {Box,Card,CardContent,CardMedia,Container,Typography,Button, Dialog} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import imageUrlBuilder from "@sanity/image-url";
 import Divider from "@mui/material/Divider";
@@ -11,7 +11,7 @@ import ContactForm from "./ContactForm";
 import EditIcon from '@mui/icons-material/Edit';
 import Grid from '@mui/material/Grid2';
 import { Link } from "react-router-dom";
-import { ContainerStyled, CardStyled, TypographyStyled } from "./PostDetailsStyles";
+import { ContainerStyled, CardStyled, TypographyStyled, DialogImage } from "./PostDetailsStyles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
@@ -20,12 +20,25 @@ export default function PostDetails({user}) {
   const [newDescription, setNewDescription] = useState("");
   const [editMode, setEditMode ] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  
+  const [openImage, setOpenImage] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const builder = imageUrlBuilder(client);
   const urlFor = (source) => {
     return builder.image(source).url();
   };
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl)
+    setOpenImage(true);
+  }
+
+  const handleClose = () => {
+    setOpenImage(false);
+    setSelectedImage(null);
+  }
+
+
   const _id = searchParams.get("_id");
 
   const navigate = useNavigate();
@@ -75,24 +88,21 @@ export default function PostDetails({user}) {
       <CardStyled>
         <ImageList variant="woven" cols={3} gap={8}>
         {postDetails?.images?.map((image, i) => (  
-          <ImageListItem key={i}>
+          <ImageListItem key={i} 
+          onClick={() => handleImageClick(urlFor(image?.asset))}
+          >
           <img 
           src={urlFor(image?.asset)}
           loading="lazy"
-          sx={{ height: 200 }}
+          style={{ height: 200, cursor: 'pointer' }}
           />
           </ImageListItem>       
           ))}
         </ImageList>
-        {/* {postDetails?.images?.map((image, i) => (         
-          <CardMedia 
-          key={i}
-          component='img'
-          sx={{ height: 200 }}
-          image={urlFor(image?.asset)}
-          />
-        ))} */}
 
+        <Dialog open={openImage} onClose={handleClose}>
+          <DialogImage src={selectedImage} />
+        </Dialog>
 
         <CardContent>
           <Grid container spacing={2}>
