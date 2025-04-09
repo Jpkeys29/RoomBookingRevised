@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+
 import { Card } from '@mui/material'
 // import MUIRating from '@material-ui/lab/Rating'
 
@@ -11,6 +12,23 @@ export const Image = styled.img`
   max-width: 100%;
   height: auto;
 `
+
+export const ButtonStyled = styled(Button)({
+  position: 'absolute',
+          top: '30%',
+          left: '80%',
+          backgroundColor: 'hsla(0, 0%, 50%, 0.6)',
+          color: 'white',
+          cursor: 'pointer',
+          width: '25px',
+          height: '25px',
+          minWidth: '10px',
+          borderRadius: '50%',
+          hover : 'white',
+          zIndex: 10,
+          '&:hover': {
+            backgroundColor:'#DCDCDC',
+})
 
 export const Badge = styled.span`
   display: inline-block;
