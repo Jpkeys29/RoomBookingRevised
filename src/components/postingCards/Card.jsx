@@ -33,7 +33,10 @@ export const CardPosting = ({roomPosting}) => {
           style={{ aspectRatio: '3/2' }}
           /> 
           )}
-        <ButtonStyled onClick={handleNextPic}>►</ButtonStyled>
+        <ButtonStyled onClick={e => {
+          e.preventDefault();
+          handleNextPic();
+        }}>►</ButtonStyled>
         <CardContent>
           <Typography variant="subtitle2">
             {/* <Badge>NEW</Badge> 3 BEDS &bull; 2 BATHS */}
