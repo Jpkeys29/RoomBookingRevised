@@ -14,7 +14,7 @@ import { auth } from "./firebase/config";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import PostRoom from "./components/PostRoom";
+import { PostRoom } from "./components/PostRoom";
 import {
   Toolbar,
   useMediaQuery,
@@ -36,17 +36,20 @@ import HouseIcon from "@mui/icons-material/House";
 import MenuIcon from "@mui/icons-material/Menu";
 import client from "./sanityClient";
 import RenderedAccount from "./components/renderedAccount";
-import RenderedPosting from "./components/renderedPosting";
 import PostDetails from "./components/PostDetails";
 import { DrawerNav } from "./components/DrawerNav";
 import { NavBar } from "./components/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { CircularProgress } from "@mui/material";
+import { Postings } from "./components/Postings";
 
 const useUserDetails = ({userId}) => {
   const fetchUserDetails = async () => {
     if (!userId) throw new Error('User ID is undefined');
     const userDetails = await client.getDocument(userId);
+    if (!userDetails) {
+      throw new Error(`No user found with ID: ${userId}`);
+    }
     return userDetails;
   };
   return ( useQuery({
@@ -81,6 +84,7 @@ export const App = () => {
 
   const handleLogOut = async () => {
     await signOut(auth);
+    setUser(null)
   };
 
   return (
@@ -103,8 +107,7 @@ export const App = () => {
           <Route
             path="account"
             element={
-              user ? (
-                userDetails ? (
+              user ? (userDetails ? (
                   <RenderedAccount
                   userDetails={userDetails}
                   setUserDetails={setUserDetails}
@@ -115,12 +118,8 @@ export const App = () => {
           <Route
             path="post"
             element={
-              user ? (
-                <>
-                  <RenderedPosting /> 
-                  <PostRoom />
-                </>
-              ) : (<SignIn />)}
+              user ? (< Postings />) :
+              (<SignIn />)}
             />
         </Routes>
       </main>
