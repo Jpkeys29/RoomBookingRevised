@@ -11,9 +11,11 @@ import Grid from "@mui/material/Grid2";
 import Post from "./Post";
 import { useSearchParams } from "react-router-dom";
 import client from "../sanityClient";
-import CardPosting from "./postingCards/Card";
+import { CardSearch } from "./postingCards/CardSearch";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import { StyledContainer, StyledTypography, StyledBox, StyledGrid, StyledLink } from "./SearchResultStyles";
 
 const SearchResults = () => {
   const [posting, setPosting] = useState([]);
@@ -21,6 +23,9 @@ const SearchResults = () => {
   const area_short_name = searchParams.get("area_short_name"); // e.g., ?myParam=value
   const area_long_name = searchParams.get("area_long_name"); // e.g., ?myParam=value
   console.log("log in search results", area_long_name, area_short_name);
+  const [ loading, setLoading ] = useState(false);
+  const [ message, setMessage ] = useState("")
+        
 
   function findCommonWords(str1, str2) {
     // Split strings into arrays of words
@@ -37,12 +42,20 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchPosting = async () => {
       try {
-        const query = `*[_type == "roomposting" && ("${area_short_name}" match area || "${area_long_name}" match neighborhood || "${area_long_name}" match area || "${area_short_name}" match neighborhood )]`;
+        setLoading(true);
+        const query = `*[_type == "roomposting" && 
+        ("${area_short_name}" match area || 
+        "${area_long_name}" match neighborhood ||
+        "${area_long_name}" match area || 
+        "${area_short_name}" match neighborhood )]`;
 
         const results = await client.fetch(query);
-        console.log("results", results);
+        setLoading(false);
+        console.log("results",results);
+        console.log("results",area_short_name);
         setPosting(results);
       } catch (error) {
+        setLoading(false);
         console.log("Error fetching the data:", error);
       }
     };
@@ -50,40 +63,34 @@ const SearchResults = () => {
   }, []);
 
   return (
-    <Container> 
-      <Typography variant="h5" gutterBottom align="center">
-        Search Results
-      </Typography>
-      <Box
-      height="100vh"
-      padding={2}
+    <StyledContainer> 
+      <StyledTypography>
+        Results
+      </StyledTypography>
+      <StyledBox>
+      <StyledGrid
+        rowSpacing={4}
+        columnSpacing={{ md: 4 }}
       >
-      <Grid
-       container
-       justifyContent='center'
-       alignItems="center"
-       rowSpacing={4}
-       columnSpacing={{ md: 4 }}
-       xs={12} sm={6} md={4}
-      >
-        {posting.length === 0 ? (
-          <p>Loading...</p>
+        { loading ? (
+          <CircularProgress /> 
+          ) : 
+            posting.length === 0 ? (
+              <>
+            <p>No postings available 😞</p>
+            </> 
         ) : (
           posting.map((p, index) => (
             <Grid item xs={12} md={4} key={p._id}>
-              {console.log (JSON.stringify(p, null, 2))}
-              <Link
-              to={`/postdetails?_id=${p._id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <CardPosting posting={p} />
-              </Link>
+              <StyledLink to={`/postdetails?_id=${p._id}`}>
+                <CardSearch posting={p} />
+              </StyledLink>
             </Grid>
           ))
         )}
-      </Grid>
-      </Box>
-    </Container>
+      </StyledGrid>
+      </StyledBox>
+    </StyledContainer>
   );
 };
 
