@@ -17,8 +17,14 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-export const StyledGrid = styled((props) => <Grid2 container {...props} />)(
-    ({ theme }) => ({
+export const StyledGrid = styled((props) => (
+    <Grid2 
+    container 
+    rowSpacing={4}
+    columnSpacing={{ md: 4 }}
+    {...props} 
+    />
+    ))(({ theme }) => ({
       justifyContent: 'center',
       alignItems: 'center',
       minHeight: '100vh',

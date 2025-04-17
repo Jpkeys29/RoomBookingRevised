@@ -68,10 +68,7 @@ const SearchResults = () => {
         Results
       </StyledTypography>
       <StyledBox>
-      <StyledGrid
-        rowSpacing={4}
-        columnSpacing={{ md: 4 }}
-      >
+      <StyledGrid>
         { loading ? (
           <CircularProgress /> 
           ) : 
