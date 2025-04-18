@@ -15,8 +15,9 @@ import { auth } from "../firebase/config";
 import client from "../sanityClient";
 import PostDetails from "./PostDetails";
 import { BoxStyled, CardStyled, ButtonCreateStyled } from "./PostRoomStyles";
+import { useNavigate } from "react-router-dom";
 
-const PostRoom = () => {
+export const PostRoom = () => {
   const [roomPosting, setRoomPosting] = useState({
     id: "",
     area: "",
@@ -29,6 +30,7 @@ const PostRoom = () => {
   });
 
   const [photosArray, setPhotoArray] = useState([]);
+  const navigate = useNavigate();
 
   const uploadImageToSanity = async (base64String, fileName = "image.png") => {
     try {
@@ -48,6 +50,7 @@ const PostRoom = () => {
 
     if (!roomPosting.area || !roomPosting.description) {
       alert('Type area');
+    navigate('/');
       return;
     }
 
@@ -101,7 +104,7 @@ const PostRoom = () => {
           console.log("photosArray", photosArray);
           setRoomPosting((prev) => ({
             ...prev,
-            photo: [...photosArray, file], // Set the state with the array of photos
+            photo: [...photosArray, file], 
           }));
         };
         reader.readAsDataURL(file);
@@ -214,4 +217,3 @@ const PostRoom = () => {
   );
 };
 
-export default PostRoom;
