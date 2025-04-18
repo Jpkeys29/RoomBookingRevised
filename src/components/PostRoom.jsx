@@ -16,6 +16,9 @@ import client from "../sanityClient";
 import PostDetails from "./PostDetails";
 import { BoxStyled, CardStyled, ButtonCreateStyled } from "./PostRoomStyles";
 import { useNavigate } from "react-router-dom";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { InputLabel, Select } from "@mui/material";
 
 export const PostRoom = () => {
   const [roomPosting, setRoomPosting] = useState({
@@ -30,6 +33,7 @@ export const PostRoom = () => {
   });
 
   const [photosArray, setPhotoArray] = useState([]);
+  const [ select, setSelect] = useState(null);
   const navigate = useNavigate();
 
   const uploadImageToSanity = async (base64String, fileName = "image.png") => {
@@ -52,8 +56,7 @@ export const PostRoom = () => {
       alert('Type area');
     navigate('/');
       return;
-    }
-
+    }   
     let images = [];
     for (const pic of roomPosting.photo) {
       const image_upload_response = await uploadImageToSanity(pic);
@@ -66,9 +69,7 @@ export const PostRoom = () => {
         },
       };
       images.push(image);
-    }
-
-    
+    } 
     // After all images are uploaded, create or replace the document
     await client.createOrReplace({
       _id: uuidv4(),
@@ -83,6 +84,10 @@ export const PostRoom = () => {
       images: images,
     });
   };
+
+  const handleSelectArea = (e) => {
+    setSelect(e.target.value);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -123,15 +128,19 @@ export const PostRoom = () => {
           }
         />
         <CardContent component="form">
-          <FormControl fullWidth margin="normal">
-            <FormLabel>Area(Manhattan, Brooklyn, Queens) </FormLabel>
-            <TextField
-              name="area"
-              value={roomPosting.area}
-              onChange={handleInputChange}
-              variant="outlined"
-            />
+          <FormControl fullWidth>
+            <FormLabel>Area </FormLabel>
+            <Select
+            value={roomPosting.area || ""}
+            onChange={(e) => setRoomPosting({ ...roomPosting, area: e.target.value })}
+            >
+              <MenuItem value="Manhattan" onClick={handleSelectArea}>Manhattan</MenuItem>
+              <MenuItem value="Brooklyn" onClick={handleSelectArea}>Brooklyn</MenuItem>
+              <MenuItem value="Queens" onClick={handleSelectArea}>Queens</MenuItem>
+              <MenuItem value="Bronx" onClick={handleSelectArea}>Bronx</MenuItem>
+            </Select>
           </FormControl>
+
           <FormControl fullWidth margin="normal">
             <FormLabel>Neighborhood</FormLabel>
             <TextField
@@ -141,6 +150,7 @@ export const PostRoom = () => {
               variant="outlined"
             />
           </FormControl>
+
           <FormControl fullWidth margin="normal">
             <FormLabel>Description</FormLabel>
             <TextField
@@ -152,6 +162,7 @@ export const PostRoom = () => {
               rows={3}
             />
           </FormControl>
+
           <FormControl fullWidth margin="normal">
             <FormLabel>Price</FormLabel>
             <TextField
@@ -161,6 +172,7 @@ export const PostRoom = () => {
               variant="outlined"
             />
           </FormControl>
+
           <FormControl>
             <FormLabel>Photos</FormLabel>
             {roomPosting.photo &&
@@ -184,6 +196,7 @@ export const PostRoom = () => {
               />
             </Button>
           </FormControl>
+
           <FormControl fullWidth margin="normal">
             <FormLabel>Availability</FormLabel>
             <TextField
@@ -193,6 +206,7 @@ export const PostRoom = () => {
               variant="outlined"
             />
           </FormControl>
+
           <FormControl fullWidth margin="normal">
             <FormLabel>Amenities</FormLabel>
             <TextField
@@ -204,6 +218,7 @@ export const PostRoom = () => {
               rows={3}
             />
           </FormControl>
+          
           <ButtonCreateStyled
             variant="contained"
             size="large"
