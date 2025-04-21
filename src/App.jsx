@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { SearchBar } from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
-import { Account } from "./components/Account";
+import { AccountForm } from "./components/AccountForm";
 import Post from "./components/Post";
 import { auth } from "./firebase/config";
 import SignIn from "./components/SignIn";
@@ -35,13 +35,14 @@ import Button from "@mui/material/Button";
 import HouseIcon from "@mui/icons-material/House";
 import MenuIcon from "@mui/icons-material/Menu";
 import client from "./sanityClient";
-import RenderedAccount from "./components/renderedAccount";
+import {AccountUser} from "./components/AccountUser";
 import PostDetails from "./components/PostDetails";
 import { DrawerNav } from "./components/DrawerNav";
 import { NavBar } from "./components/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { CircularProgress } from "@mui/material";
 import { Postings } from "./components/Postings";
+import { UserPostings } from "./components/UserPostings";
 
 const useUserDetails = ({userId}) => {
   const fetchUserDetails = async () => {
@@ -87,6 +88,7 @@ export const App = () => {
     setUser(null)
   };
 
+
   return (
     <div>
       <Box sx={{ display: 'flex'}}>
@@ -107,18 +109,18 @@ export const App = () => {
           <Route
             path="account"
             element={
-              user ? (userDetails ? (
-                  <RenderedAccount
-                  userDetails={userDetails}
+              user ? (userLoginDetails ? (
+                  <AccountUser
+                  userDetails={userLoginDetails}
                   setUserDetails={setUserDetails}
                   />
-                  ) : (<Account />)) : 
+                  ) : (<AccountForm />)) : 
                   (<SignIn setUser={setUser} />)}
             />
           <Route
             path="post"
             element={
-              user ? (< Postings />) :
+              user ? (< UserPostings />) :
               (<SignIn />)}
             />
         </Routes>
