@@ -136,36 +136,46 @@ export default function PostDetails({user}) {
           </Grid>
           
           {user && <Divider />}
-          <TypographyStyled
-            variant="body1"
-            component="p"
-          >
+          <TypographyStyled component="div">
+            <Typography component="span" variant="h6" sx={{ color: "text.secondary", mb: 1.5 }}>
+            Neighborhood: 
+            </Typography>{" "}
             {postDetails?.neighborhood}
           </TypographyStyled>
-          <TypographyStyled 
-          component="div"
-           >
-            {postDetails?.area}
+
+          <TypographyStyled component="div">
+            <Typography component="span" variant="h6" sx={{ color: "text.secondary", mb: 1.5 }}>
+              Area: 
+            </Typography>{" "}
+              <Typography component="span">
+                {postDetails?.area}
+              </Typography>
           </TypographyStyled>
-          <TypographyStyled
-            variant="body1"
-            component="p"
-          >
-            ${postDetails?.price}
+          
+          <TypographyStyled component="div">
+            <Typography component="span" variant="h6" sx={{ color: "text.secondary", mb: 1.5 }}>
+              Price: 
+            </Typography>{" "}
+            <Typography sx={{ fontWeight: 'bold' }} component="span">
+              ${postDetails?.price}
+            </Typography>
           </TypographyStyled>
-          <Typography
-            variant="body1"
-            sx={{ color: "text.secondary", mb: 1.5 }}
-            component="p"
-          >
-            {postDetails?.availability}
+
+          <Box>
+            <Typography component="span" variant="h6" sx={{ color: "text.secondary", mb: 1.5 }}>
+            Availability:
+            </Typography>{" "}
+            <Typography component="span" >
+             {postDetails?.availability}
+            </Typography>
+          </Box>
+
+          <Typography component="span" variant="h6" sx={{ color: "text.secondary", mb: 1.5 }}>
+            Amenities:
+            </Typography>{" "}
+            <Typography component="span" >
+             {postDetails?.amenities}
           </Typography>
-          <TypographyStyled
-            variant="body1"
-            component="p"
-          >
-            {postDetails?.amenities}
-          </TypographyStyled>
 
         {user ? ( <ContactForm/>) :
           (
