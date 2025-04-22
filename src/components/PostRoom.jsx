@@ -18,7 +18,7 @@ import { BoxStyled, CardStyled, ButtonCreateStyled } from "./PostRoomStyles";
 import { useNavigate } from "react-router-dom";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { InputLabel, Select } from "@mui/material";
+import { InputLabel, Select, Backdrop, CircularProgress, Snackbar, Alert } from "@mui/material";
 
 export const PostRoom = () => {
   const [roomPosting, setRoomPosting] = useState({
@@ -35,6 +35,8 @@ export const PostRoom = () => {
   const [photosArray, setPhotoArray] = useState([]);
   const [ select, setSelect] = useState(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const uploadImageToSanity = async (base64String, fileName = "image.png") => {
     try {
@@ -54,9 +56,11 @@ export const PostRoom = () => {
 
     if (!roomPosting.area || !roomPosting.description) {
       alert('Type area');
-    navigate('/');
       return;
-    }   
+    } 
+
+    setLoading(true);
+    try {
     let images = [];
     for (const pic of roomPosting.photo) {
       const image_upload_response = await uploadImageToSanity(pic);
@@ -83,6 +87,14 @@ export const PostRoom = () => {
       amenities: roomPosting.amenities,
       images: images,
     });
+    setSuccess(true);
+    navigate('/');
+  } catch (error) {
+    console.error('Error submitting:', error);
+    alert("Something went wrong.");
+  } finally {
+    setLoading(false);
+  }
   };
 
   const handleSelectArea = (e) => {
@@ -223,9 +235,16 @@ export const PostRoom = () => {
             variant="contained"
             size="large"
             onClick={handleSubmit}
+            disabled={loading}
           >
-            Create
+            {loading ? 'Uploading...' : 'Create'}
           </ButtonCreateStyled>
+
+          <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading} 
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         </CardContent>
       </CardStyled>
     </BoxStyled>
