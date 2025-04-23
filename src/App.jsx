@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import { SearchBar } from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
 import { AccountForm } from "./components/AccountForm";
-import Post from "./components/Post";
 import { auth } from "./firebase/config";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -41,8 +40,8 @@ import { DrawerNav } from "./components/DrawerNav";
 import { NavBar } from "./components/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { CircularProgress } from "@mui/material";
-import { Postings } from "./components/Postings";
 import { UserPostings } from "./components/UserPostings";
+import { useNavigate } from "react-router";
 
 const useUserDetails = ({userId}) => {
   const fetchUserDetails = async () => {
@@ -64,11 +63,12 @@ export const App = () => {
   const [user, setUser] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [ isLoading, setIsLoading ] = useState(false);
+  const navigate = useNavigate();
 
    const links = [
    {name: "Post a Room", to: "/post",},
    {name: "Account", to: "/account",},
-   {name: "Logout", to: "/",},
+   {name: "Logout", onClick:()=>handleLogOut()},
   ];
 
   const { data : userLoginDetails, error, isTryingToLoad } = useUserDetails({userId : user?.uid});
@@ -86,6 +86,7 @@ export const App = () => {
   const handleLogOut = async () => {
     await signOut(auth);
     setUser(null)
+    navigate('/')
   };
 
 

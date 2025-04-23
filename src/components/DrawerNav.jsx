@@ -23,7 +23,9 @@ export function DrawerNav({links}) {
     return (
 
         <Box 
-        sx={{ display: 'flex', alignItems:"center", fontSize:'20px', gap:3, ml:"auto"}} 
+        sx={{ 
+          display: 'flex', alignItems:"center", fontSize:'20px', gap:3, ml:"auto"
+        }} 
         >
         <Box>   
           {isMobile ? (
@@ -33,7 +35,7 @@ export function DrawerNav({links}) {
           ) : (
             <Stack direction="row" gap={3} justifyContent="flex-end">
             {links.map((link, i) => (
-                <LinkStyle key={i} to={link.to}>
+                <LinkStyle key={i} to={link.to} onClick={link.onClick} >
                    {link.name} 
                  </LinkStyle>
             ))}
