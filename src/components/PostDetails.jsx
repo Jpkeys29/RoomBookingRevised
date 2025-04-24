@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { ContainerStyled, CardStyled, TypographyStyled, DialogImage } from "./PostDetailsStyles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Modal from '@mui/material/Modal';
 
 export default function PostDetails({user}) {
   const [postDetails, setPostDetails] = useState(null);
@@ -22,6 +23,7 @@ export default function PostDetails({user}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [openImage, setOpenImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [openDeleteBox, setOpenDeleteBox] = useState(false);
 
   const builder = imageUrlBuilder(client);
   const urlFor = (source) => {
@@ -83,6 +85,9 @@ export default function PostDetails({user}) {
     setNewDescription(e.target.value);
   };
 
+  const handleOpenDeleteBox = () => setOpenDeleteBox(true);
+  const handleCloseDeleteBox = () => setOpenDeleteBox(false);
+  
   return (
     <ContainerStyled>
       <CardStyled>
@@ -190,12 +195,40 @@ export default function PostDetails({user}) {
       {user && <Divider />}
         
         { user && 
+        <>
         <Button
           sx={{ color: "error.main", mb: 1.5 }}
-          onClick={() => deletePosting(postDetails._id)}
+          onClick={handleOpenDeleteBox}
+          // onClick={() => deletePosting(postDetails._id)}
         >
           Delete Posting
         </Button>
+
+        <Modal 
+          open={openDeleteBox}  
+          onClose={handleCloseDeleteBox}
+          >
+            <Box
+            sx = {{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 400,
+              bgcolor: 'background.paper',
+              border: '2px solid #000',
+              boxShadow: 24,
+              p: 4,
+            }}
+            >
+          <Typography>
+            Are you sure you want to delete this post?
+          </Typography>
+          <Button onClick={()=> deletePosting(postDetails._id)}>Delete</Button>
+          <Button onClick={handleCloseDeleteBox}>Cancel</Button>
+          </Box>
+          </Modal>
+        </>
         }
       </CardStyled>
     </ContainerStyled>
