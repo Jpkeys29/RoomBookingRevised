@@ -9,8 +9,11 @@ import imageUrlBuilder from "@sanity/image-url";
 import client from "../sanityClient";
 import { Link } from "react-router-dom";
 import { use } from "react";
+import { useNavigate } from "react-router";
+
 
 export const AccountUser = ({ userDetails }) => {
+  const navigate = useNavigate();
   const builder = imageUrlBuilder(client);
 
   console.log(userDetails);
@@ -19,6 +22,10 @@ export const AccountUser = ({ userDetails }) => {
     return builder.image(source);
   };
   console.log(urlFor(userDetails?.image));
+
+  const handleNaviPostings = () => {
+    navigate('/post');
+  }
 
   return (
     <Card
@@ -59,12 +66,10 @@ export const AccountUser = ({ userDetails }) => {
         <Typography variant="h6" color="text.secondary">
           Occupation: {userDetails.occupation}
         </Typography>
-        <Link 
-        to={'/post'}
-        style={{ textDecoration:"none", color:"inherit"}}
-        >
-          <Typography variant="h5" >My Postings</Typography>
-        </Link>
+        <Button onClick={handleNaviPostings}>
+          My Postings
+        </Button>
+
       </CardContent>
     </Card>
   );
