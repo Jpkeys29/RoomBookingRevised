@@ -1,6 +1,6 @@
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent'
-import { CardHeader, CardMedia } from '@mui/material'
+import { Card, CardHeader, CardMedia } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Container, Image, Badge, ButtonStyled } from './Cardstyles'
 import { Box, Button } from '@mui/material'
@@ -8,11 +8,12 @@ import imageUrlBuilder from '@sanity/image-url'
 import client from '../../sanityClient'
 import { useState } from 'react';
 import SearchResults from '../SearchResults';
+import Avatar from '@mui/material/Avatar';
 
 export const CardPosting = ({roomPosting}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  // console.log(roomPosting.images);
 
+  
   const builder = imageUrlBuilder(client)
   const urlFor = (source) => {
     return builder.image(source).url()
@@ -24,7 +25,14 @@ export const CardPosting = ({roomPosting}) => {
 
   return (
     <Container style={{position: 'relative'}}>
-      <CardContent  >
+    <Card >
+        {/* <CardHeader>
+          <Avatar
+          sx={{ width: 24, height: 24, bgcolor: 'red'  }}
+          >
+            R
+          </Avatar>  
+        </CardHeader> */}
         {roomPosting.images?.length > 0 && (
           <CardMedia
           component="img"
@@ -37,6 +45,7 @@ export const CardPosting = ({roomPosting}) => {
           e.preventDefault();
           handleNextPic();
         }}>►</ButtonStyled>
+
         <CardContent>
           <Typography variant="subtitle2">
             {/* <Badge>NEW</Badge> 3 BEDS &bull; 2 BATHS */}
@@ -51,7 +60,7 @@ export const CardPosting = ({roomPosting}) => {
             ${roomPosting?.price}
           </Typography>
         </CardContent>
-      </CardContent>
+      </Card>
     </Container>
   )
 }
