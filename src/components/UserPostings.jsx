@@ -10,11 +10,10 @@ import imageUrlBuilder from "@sanity/image-url";
 import client from "../sanityClient";
 import { auth } from "../firebase/config";
 import { Link } from "react-router-dom";
-// import { Postings } from "./Postings";
 import PostDetails from "./PostDetails";
 import { PostRoom } from "./PostRoom";
 import { CircularProgress } from "@mui/material";
-import { BoxPostStyled, TypograStyled, StyledBox } from "./UserPostingStyles";
+import { TypograStyled, BoxStyled, GridContaStyled } from "./UserPostingStyles";
 import { CardUserPostings } from "./postingCards/CardUserPostings";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -38,25 +37,19 @@ export const UserPostings = () => {
         return builder.image(source).url()
     }
   
-  return (
-    <Box sx={{ width: '100%', height: '100%'}}> 
-        {postingDetails > 0 &&
-        (<TypograStyled variant="h5" gutterBottom align="center" paddingTop={2}>
-          My Postings
-        </TypograStyled>)
-        }
-      {/* <BoxPostStyled> */}
-      
+  return(
+    <BoxStyled > 
+      {postingDetails > 0 &&
+      (<TypograStyled variant="h5" gutterBottom align="center" paddingTop={2}>
+        My Postings
+      </TypograStyled>)
+      }
 
-      <Grid2 container
+      <GridContaStyled 
+      container
       spacing={{ xs: 2, md: 3}}
       columns={{ xs: 4, sm: 8, md: 12}}
-      sx={{backgroundColor: "#F5F5F5",
-      justifyContent: 'center',
-      padding: "15px",
-      marginBottom: "20px",
-    }}
-    >
+      >
         {postingDetails.map((p, index) => (
           <Grid2 
           size={{ xs: 4, sm: 4, md: 4}}
@@ -68,9 +61,8 @@ export const UserPostings = () => {
             <CardUserPostings userPostings={p} />
           </Grid2>
           ))} 
-        </Grid2>
-      {/* </BoxPostStyled> */}
+      </GridContaStyled>
       <PostRoom />
-    </Box>
+    </BoxStyled>
   );
 }

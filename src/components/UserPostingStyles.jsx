@@ -1,27 +1,16 @@
-// import { styled } from '@mui/material/styles';
 import { styled, Card, Container, Typography, Box, Grid2} from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export const BoxPostStyled = styled(Box)(({theme}) => ({
-  flexGrow: 1,
-  display: 'grid',
-  gap:10, 
-  marginTop: "3vh",
-  marginBottom: "5vh",
-  padding: "10px",
-  backgroundColor: "#F5F5F5",
-  textDecoration: "none",
-  color: "inherit",
+export const BoxStyled = styled(Box)(({ theme }) => ({
+  width: '100%', 
+  height: '100%'
+}));
 
-  [theme.breakpoints.up('sm')]: {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-  [theme.breakpoints.up('md')]: {
-      gridTemplateColumns: 'repeat(3, 1fr)',
-  },
-  // [theme.breakpoints.up('lg')]: {
-  //     gridTemplateColumns: 'repeat(4, 1fr)',
-  // },
+export const GridContaStyled = styled(Grid2)(({theme}) => ({
+  backgroundColor: "#F5F5F5",
+  justifyContent: 'center',
+  padding: "15px",
+  marginBottom: "20px",
 }))
 
 export const TypograStyled = styled(Box)(({theme}) => ({
@@ -33,9 +22,5 @@ export const TypograStyled = styled(Box)(({theme}) => ({
 
 }))
   
-export const StyledBox = styled(Box)(({ theme }) => ({
-  height: '100vh',
-  padding: theme.spacing(2),
-}));
 
   
