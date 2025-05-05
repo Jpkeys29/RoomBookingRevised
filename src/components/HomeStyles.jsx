@@ -1,33 +1,20 @@
 import { styled, Box, Typography, Card, Grid2 } from '@mui/material';
 
-export const BoxStyled = styled(Box)(({theme}) => ({
+export const BoxWrapperStyled = styled(Box)(() => ({
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  }))
+
+export const SearchBarStyled = styled(Box)(({theme}) => ({
     backgroundImage:
     "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), url(/banner.jpg)",
     backgroundPosition: "center top",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    height: "50%",
-    padding: 6,
-
-}))
-
-export const BoxPostStyled = styled(Box)(({theme}) => ({
-    flexGrow: 1,
-    display: 'grid',
-    // gridTemplateColumns: 'repeat(3, 1fr)',
-    gap:15, marginTop: "20vh",
-    padding: "20px",
-    backgroundColor: "#F5F5F5",
-
-    [theme.breakpoints.up('sm')]: {
-        gridTemplateColumns: 'repeat(2, 1fr)',
-    },
-    [theme.breakpoints.up('md')]: {
-        gridTemplateColumns: 'repeat(3, 1fr)',
-    },
-    // [theme.breakpoints.up('lg')]: {
-    //     gridTemplateColumns: 'repeat(4, 1fr)',
-    // },
+    height: "40vh",
+    padding: 20,
+    marginBottom: 40,
 }))
 
 export const TypograStyled = styled(Box)(({theme}) => ({
