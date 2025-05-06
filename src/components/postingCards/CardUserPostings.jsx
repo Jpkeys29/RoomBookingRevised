@@ -1,12 +1,14 @@
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent'
-import { CardHeader, CardMedia } from '@mui/material'
+import { Card, CardHeader, CardMedia } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Container, Image, Badge, ButtonStyled } from './Cardstyles'
 import { Box, Button } from '@mui/material'
 import imageUrlBuilder from '@sanity/image-url'
 import client from '../../sanityClient'
 import { useState } from 'react';
+import { CircularProgress } from "@mui/material";
+import { TypograStyled } from '../HomeStyles';
 
 export const CardUserPostings = ({userPostings}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,11 +21,10 @@ export const CardUserPostings = ({userPostings}) => {
   const handleNextPic = () => {
     setCurrentIndex(prev => (prev < userPostings?.images.length - 1 ? prev + 1 : 0));
   };  
-   
-  
+    
   return (
-      <Container style={{position: 'relative'}}>
-      <CardContent  >
+      <Card style={{position: 'relative'}}>        
+          {/* <CircularProgress />  */}
         {userPostings.images?.length > 0 && (
             <CardMedia
             component="img"
@@ -33,9 +34,10 @@ export const CardUserPostings = ({userPostings}) => {
             /> 
             )}
         <ButtonStyled onClick={e => {
-            e.preventDefault();
-            handleNextPic();
-        }}>►</ButtonStyled>
+          e.preventDefault();
+          handleNextPic();
+          }}>►</ButtonStyled>
+        
         <CardContent>
           <Typography variant="subtitle2">
             {/* <Badge>NEW</Badge> 3 BEDS &bull; 2 BATHS */}
@@ -43,15 +45,15 @@ export const CardUserPostings = ({userPostings}) => {
           <Typography variant="h6" component="h2" noWrap>
             {userPostings?.description}
           </Typography>
-          <Typography variant="body1" color="textSecondary" component="p">
-            {userPostings?.neighborhood}({userPostings?.area})
-          </Typography>
-          <Typography variant="body1" color="textSecondary" component="p">
+          <Typography variant="body1" color="textSecondary" component="p" fontSize= '18px'>
             ${userPostings?.price}
           </Typography>
+          <TypograStyled>
+            <Typography>{userPostings?.neighborhood}, </Typography>
+            <Typography>{userPostings?.area}</Typography>
+          </TypograStyled>
         </CardContent>
-      </CardContent>
-    </Container>
+    </Card>
   )
 }
 

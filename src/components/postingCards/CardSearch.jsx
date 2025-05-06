@@ -7,7 +7,7 @@ import { Box } from '@mui/material'
 import imageUrlBuilder from '@sanity/image-url'
 import client from '../../sanityClient'
 import { useState } from 'react';
-
+import { TypograStyled } from '../HomeStyles';
 
 export const CardSearch = ({posting})  => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,12 +44,13 @@ export const CardSearch = ({posting})  => {
           <Typography variant="h6" component="h2" noWrap>
             {posting?.description}
           </Typography>
-          <Typography variant="body1" color="textSecondary" component="p">
-            {posting?.neighborhood}({posting?.area})
-          </Typography>
-          <Typography variant="body1" color="textSecondary" component="p">
+          <Typography variant="body1" color="textSecondary" component="p" fontSize= '18px'>
             ${posting?.price}
           </Typography>
+          <TypograStyled>
+            <Typography>{posting?.neighborhood}, </Typography>
+            <Typography>{posting?.area}</Typography>
+          </TypograStyled>
         </CardContent>
       </CardContent>
     </Container>
