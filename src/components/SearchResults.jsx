@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid2";
-import Post from "./Post";
 import { useSearchParams } from "react-router-dom";
 import client from "../sanityClient";
 import { CardSearch } from "./postingCards/CardSearch";
@@ -16,6 +15,8 @@ import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import { StyledContainer, StyledTypography, StyledBox, StyledGrid, StyledLink } from "./SearchResultStyles";
+import { TypograStyled, BoxStyled, GridContaStyled } from "./UserPostingStyles";
+
 
 const SearchResults = () => {
   const [posting, setPosting] = useState([]);
@@ -63,12 +64,15 @@ const SearchResults = () => {
   }, []);
 
   return (
-    <StyledContainer> 
+    <BoxStyled> 
       <StyledTypography>
         Results
       </StyledTypography>
-      <StyledBox>
-      <StyledGrid>
+      <GridContaStyled
+      container
+      spacing={{ xs: 2, md: 3}}
+      columns={{ xs: 4, sm: 8, md: 12}}
+      >
         { loading ? (
           <CircularProgress /> 
           ) : 
@@ -78,16 +82,17 @@ const SearchResults = () => {
             </> 
         ) : (
           posting.map((p, index) => (
-            <Grid item xs={12} md={4} key={p._id}>
-              <StyledLink to={`/postdetails?_id=${p._id}`}>
+              <StyledLink 
+              to={`/postdetails?_id=${p._id}`}
+              key={index}
+              >
                 <CardSearch posting={p} />
               </StyledLink>
-            </Grid>
           ))
         )}
-      </StyledGrid>
-      </StyledBox>
-    </StyledContainer>
+      </GridContaStyled
+      >
+    </BoxStyled>
   );
 };
 
