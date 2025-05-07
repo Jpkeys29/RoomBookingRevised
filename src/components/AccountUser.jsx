@@ -14,14 +14,12 @@ import { useNavigate } from "react-router";
 
 export const AccountUser = ({ userDetails }) => {
   const navigate = useNavigate();
+  
   const builder = imageUrlBuilder(client);
-
-  console.log(userDetails);
-
   const urlFor = (source) => {
     return builder.image(source);
   };
-  console.log(urlFor(userDetails?.image));
+  // console.log(urlFor(userDetails?.image));
 
   const handleNaviPostings = () => {
     navigate('/post');
@@ -38,8 +36,11 @@ export const AccountUser = ({ userDetails }) => {
       }}
     >
       <CardHeader
-        title="My Account"
-        titleTypographyProps={{ align: "center", variant: "h5" }}
+        title={
+          <Typography  variant="h5" align="center" >
+            {userDetails?.name}'s Account
+          </Typography>
+        }  
       />
       <CardMedia
         component="img"
