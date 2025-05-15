@@ -3,9 +3,7 @@ import { Container, Typography, Box, Grid2} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
-  paddingTop: '5px',
-  marginTop: '5px',
-  height: '150vh',
+  height: '100vh',
 }));
 
 export const StyledTypography = styled(Typography)(({ theme }) => ({

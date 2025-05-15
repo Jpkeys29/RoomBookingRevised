@@ -8,9 +8,12 @@ import imageUrlBuilder from '@sanity/image-url'
 import client from '../../sanityClient'
 import { useState } from 'react';
 import { TypograStyled } from '../HomeStyles';
+import * as React from 'react';
 
 export const CardSearch = ({posting})  => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  console.log(posting);
 
   const builder = imageUrlBuilder(client)
   const urlFor = (source) => {
@@ -36,11 +39,7 @@ export const CardSearch = ({posting})  => {
           e.preventDefault();
           handleNextPic();
         }}>►</ButtonStyled>
-
         <CardContent>
-          <Typography variant="subtitle2">
-            {/* <Badge>NEW</Badge> 3 BEDS &bull; 2 BATHS */}
-          </Typography>
           <Typography variant="h6" component="h2" noWrap>
             {posting?.description}
           </Typography>
@@ -56,3 +55,6 @@ export const CardSearch = ({posting})  => {
     </Container>
   )
 }
+
+
+

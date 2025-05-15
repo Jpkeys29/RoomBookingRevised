@@ -18,7 +18,7 @@ import { StyledContainer, StyledTypography, StyledBox, StyledGrid, StyledLink } 
 import { TypograStyled, BoxStyled, GridContaStyled } from "./UserPostingStyles";
 
 
-const SearchResults = () => {
+const SearchResults = ({userDetails}) => {
   const [posting, setPosting] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const area_short_name = searchParams.get("area_short_name"); // e.g., ?myParam=value
@@ -86,7 +86,7 @@ const SearchResults = () => {
               to={`/postdetails?_id=${p._id}`}
               key={index}
               >
-                <CardSearch posting={p} />
+                <CardSearch posting={p} userDetails={userDetails}/>
               </StyledLink>
           ))
         )}
