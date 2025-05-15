@@ -20,8 +20,11 @@ export const TypographyStyled = styled(Typography)({
     mb: 1.5 
 })
 
-// export const ButtonDeleteStyled = styled(Button)({
-//     color: "error.main",
-//     mb: 1.5
-// })
+export const DialogImage = styled('img')(() => ({
+    width: '100%',
+    height: 'auto',
+    borderRadius: 10,
+}))
+
+
 

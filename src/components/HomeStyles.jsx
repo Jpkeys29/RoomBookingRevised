@@ -21,16 +21,7 @@ export const TypograStyled = styled(Box)(({theme}) => ({
     display: "flex", 
     gap: 1, backgroundColor: "#E0E0E0", 
     borderRadius: "15px", 
-    padding: "4px 8px", width:"210px", 
+    padding: "4px 8px", width:"180px", 
     color: "grey.700"
 
 }))
-
-
-{/* <CardContent > */}
-    {/* <Typography variant="inherit" sx={{ fontWeight: "bold", fontSize: "20px" }}>${post.price} /mo</Typography> */}
-        {/* <TypograStyled>
-        <Typography>{post.neighborhood},</Typography>
-        <Typography>{post.area}</Typography>
-        </TypograStyled> */}
-{/* </CardContent> */}

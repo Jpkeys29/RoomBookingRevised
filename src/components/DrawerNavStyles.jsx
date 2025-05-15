@@ -1,9 +1,8 @@
-import { Drawer, styled } from "@mui/material";
-import { Box } from "@mui/material";
+import { Drawer, styled, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
 
-const DrawerBar = styled(Box)({
+export const DrawerBar = styled(Box)({
     display: "block",
     padding: "10px",
     color: "#212529",
