@@ -107,7 +107,7 @@ export default function SignUp({ setUser }) {
 
   return (
     <SignInContainer direction="column" justifyContent="space-between">
-      <Card variant="outlined">
+      <CardStyled variant="outlined">
         <TypographyStyled
           component="h1"
           variant="h4"
@@ -195,7 +195,7 @@ export default function SignUp({ setUser }) {
             Sign Up with Google
           </Button>
         </Box>
-      </Card>
+      </CardStyled>
     </SignInContainer>
   )
 }

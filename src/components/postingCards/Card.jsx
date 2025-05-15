@@ -47,17 +47,13 @@ export const CardPosting = ({roomPosting}) => {
           <Typography variant="h6" component="h2" noWrap>
             {roomPosting?.description}
           </Typography>
-          {/* <Typography variant="body1" color="textSecondary" component="p">
-            {roomPosting?.neighborhood}({roomPosting?.area})
-          </Typography> */}
           <Typography variant="body1" color="textSecondary" component="p" fontSize= '18px'>
             ${roomPosting?.price}
           </Typography>
           <TypograStyled>
-        <Typography>{roomPosting?.neighborhood}, </Typography>
-        <Typography>{roomPosting?.area}</Typography>
-        </TypograStyled>
-
+            <Typography>{roomPosting?.neighborhood}, </Typography>
+            <Typography>{roomPosting?.area}</Typography>
+          </TypograStyled>
         </CardContent>
       </Card>
         </Container>

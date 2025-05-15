@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState } from "react";
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
@@ -25,10 +26,10 @@ import { CardStyled, SignInContainer, TypographyStyled } from "./SignInStyles"
 
 
 export default function SignIn({ setUser }) {
-  const [emailError, setEmailError] = React.useState(false)
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState("")
-  const [passwordError, setPasswordError] = React.useState(false)
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("")
+  const [emailError, setEmailError] = useState(false)
+  const [emailErrorMessage, setEmailErrorMessage] = useState("")
+  const [passwordError, setPasswordError] = useState(false)
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("")
   const [open, setOpen] = React.useState(false)
 
   const navigate = useNavigate()
@@ -50,13 +51,13 @@ export default function SignIn({ setUser }) {
     })
     let email = data.get("email")
     let password = data.get("password")
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user
-        console.log("user", user)
+        console.log("user:", user)
         setUser(user)
-      navigate("/")
+        navigate("/")
       })
       .catch((error) => {
         const errorCode = error.code
@@ -107,7 +108,8 @@ export default function SignIn({ setUser }) {
 
   return (
     <SignInContainer direction="column" justifyContent="space-between">
-      <Card variant="outlined">
+      <CardStyled 
+      variant="outlined">
         <TypographyStyled
           component="h1"
           variant="h4"
@@ -204,7 +206,7 @@ export default function SignIn({ setUser }) {
             Sign in with Google
           </Button>
         </Box>
-      </Card>
+      </CardStyled>
     </SignInContainer>
   )
 }

@@ -6,7 +6,7 @@ export const CardStyled = styled(Card)(({ theme }) => ({
     flexDirection: "column",
     alignSelf: "center",
     width: "100%",
-    padding: theme.spacing(4),
+    padding: theme.spacing(1),
     gap: theme.spacing(2),
     margin: "auto",
     border: '2px solid',
